@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from scipy.optimize import curve_fit
 
-def linear(x,a): #fct dont on cherche a et b pour la régression linéaire. 
+def linear(x,a): #fct dont on cherche a
     return a*x 
 
 lTube = [4.9*10**(-2), 7.5*10**(-2), 10*10**(-2), 14.7*10**(-2), 20.3*10**(-2), 24.7*10**(-2), 30.2*10**(-2), 34.2*10**(-2)] # [m]
@@ -19,7 +19,7 @@ erreurFrequence = [100, 125, 55, 40, 37.5, 60, 38.5, 40]
 
 plt.plot(invLTube, frequence, "bx", label = 'mesures effectuées')
 popt, pcov = curve_fit(linear, invLTube, frequence, sigma = erreurFrequence)
-print(popt) #Nous donne les valeurs de a et b trouvées par la régression linéaire. Dans notre cas a = 71.11781122  et b = 49.19614534
+print(popt) #Nous donne la valeur de a 
 xFit2 = np.linspace(0,25,1000) 
 plt.grid()
 
