@@ -29,7 +29,7 @@ plt.errorbar(invLTube, frequence, yerr = erreurFrequence , xerr = erreurInvLTube
 
 plt.xlabel('inverse de la longueur de chaque tube [1/m]') 
 plt.ylabel('fréquence fondamentale [Hz]')
-plt.plot(xFit2, linear(xFit2, *popt), 'r', label = 'régression linéaire 71.11781122x + 49.19614534')
+plt.plot(xFit2, linear(xFit2, *popt), 'r', label = 'régression linéaire 77.41401352x')
 
 plt.legend(loc="upper left")
 plt.show()
@@ -40,3 +40,4 @@ la vitesse du son est obtenue en multipliant la pente de la droite par 4 au vu d
 """
 vSon = 4*popt[0]
 print(vSon)
+
