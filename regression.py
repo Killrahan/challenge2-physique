@@ -6,7 +6,7 @@ Created on Sat Nov 19 15:27:43 2022
 import numpy as np 
 import matplotlib.pyplot as plt 
 from scipy.optimize import curve_fit
-corr = True #Active le modèle de correction prenant en compte le rayon des tubes
+corr = False  #Active le modèle de correction prenant en compte le rayon des tubes
 
 def linear(x,a): #fct dont on cherche a et b pour la régression linéaire. 
     return a*x 
@@ -24,8 +24,8 @@ frequence = [1450, 1020, 760, 560, 407.5, 340, 271.5, 240] #[Hz]
 erreurFrequence = [100, 125, 55, 40, 37.5, 60, 38.5, 40]
 
 plt.plot(invLTube, frequence, "bx", label = 'mesures effectuées')
-popt, pcov = curve_fit(linear, invLTube, frequence, sigma = erreurFrequence)
-print(popt) #Nous donne les valeurs de a et b trouvées par la régression linéaire. Dans notre cas a = 71.11781122  et b = 49.19614534
+popt, pcov = curve_fit(linear, invLTube, frequence, sigma = erreurFrequence) #régression linéaire pondérée. 
+print(popt) #Nous donne la valeur de a trouvée par la régression linéaire. Dans notre cas a = 77.41401352 dans le modèle classique et a = 81.06784824 dans le modèle correctif.
 xFit2 = np.linspace(0,25,1000) 
 plt.grid()
 
@@ -35,7 +35,10 @@ plt.errorbar(invLTube, frequence, yerr = erreurFrequence , xerr = erreurInvLTube
 
 plt.xlabel('inverse de la longueur de chaque tube [1/m]') 
 plt.ylabel('fréquence fondamentale [Hz]')
-plt.plot(xFit2, linear(xFit2, *popt), 'r', label = 'régression linéaire 77.41401352x')
+if corr == True : 
+    plt.plot(xFit2, linear(xFit2, *popt), 'r', label = 'régression linéaire 81.06784824x')
+else:
+    plt.plot(xFit2, linear(xFit2, *popt), 'r', label = 'régression linéaire 77.41401352x')
 
 plt.legend(loc="upper left")
 plt.show()
@@ -46,8 +49,6 @@ la vitesse du son est obtenue en multipliant la pente de la droite par 4 au vu d
 """
 vSon = 4*popt[0]
 print(vSon)
-
-
 
 
 
